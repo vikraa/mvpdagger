@@ -16,6 +16,7 @@ import com.lab.mymvp.base.repo.DiscountRepo;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DiscountListFragment extends Fragment {
 
@@ -32,12 +33,14 @@ public class DiscountListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.fragment_discount_list, null);
+        return v;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
         DiscountAdapter discountAdapter = new DiscountAdapter(getActivity(), R.layout.item_discounts, mRepo.getAllDiscounts());
         mRecyclerView.setAdapter(discountAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

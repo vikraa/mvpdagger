@@ -22,22 +22,11 @@ public class LibraryAdapter extends BaseQuickAdapter<Library> {
     @BindView(R.id.txt_library_name)
     TextView mTxtName;
 
-    /*@Inject
-    ItemListFragment mItemListFragment;*/
-
     private Context mContext;
 
     public LibraryAdapter(Context context, int layoutResId, List<Library> data) {
         super(layoutResId, data);
         this.mContext = context;
-    }
-
-    public LibraryAdapter(List<Library> data) {
-        super(data);
-    }
-
-    public LibraryAdapter(View contentView, List<Library> data) {
-        super(contentView, data);
     }
 
     @Override

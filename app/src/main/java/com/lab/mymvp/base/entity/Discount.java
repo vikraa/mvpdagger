@@ -15,7 +15,7 @@ public class Discount {
     String mName;
 
     @ColumnInfo(name = "discount_value")
-    long mDiscountValue;
+    float mDiscountValue;
 
     public int getId() {
         return mId;
@@ -33,11 +33,11 @@ public class Discount {
         this.mName = name;
     }
 
-    public long getDiscountValue() {
+    public float getDiscountValue() {
         return mDiscountValue;
     }
 
-    public void setDiscountValue(long discountValue) {
+    public void setDiscountValue(float discountValue) {
         this.mDiscountValue = discountValue;
     }
 }

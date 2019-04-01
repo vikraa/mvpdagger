@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LibraryFragment extends Fragment implements MainContract.View<ItemData> {
+public class LibraryFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecylerView;
@@ -71,8 +71,4 @@ public class LibraryFragment extends Fragment implements MainContract.View<ItemD
         mRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    @Override
-    public void showData(List<ItemData> list) {
-
-    }
 }
