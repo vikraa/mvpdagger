@@ -9,6 +9,7 @@ import com.lab.mymvp.base.repo.LibraryRepo;
 import com.lab.mymvp.business.net.RestHelper;
 
 import java.util.List;
+import java.util.Random;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -35,6 +36,8 @@ public class PresenterImpl implements MainContract.Presenter {
             public void success(List<ItemData> items, Response response) {
                 Log.d("retrofit success", "count  = " + items.size());
                 for (ItemData it : items) {
+                    int rand = new Random().nextInt((99 - 10) + 1) + 10;
+                    it.setPrice(it.getId()*rand);
                     mItemRepo.insert(it);
                 }
             }

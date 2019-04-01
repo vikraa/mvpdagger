@@ -22,6 +22,10 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
 
     @BindView(R.id.txt_item)
     TextView mTxtItem;
+
+    @BindView(R.id.txt_price)
+    TextView mTxtPrice;
+
     private Context mContext;
 
     public ItemAdapter(Context context, int layoutResId, List<ItemData> data) {
@@ -37,5 +41,6 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
                 .noFade()
                 .into(mImgItem);
         mTxtItem.setText(item.getTitle());
+        mTxtPrice.setText(String.format("$ %,d", item.getPrice()));
     }
 }
