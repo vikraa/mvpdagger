@@ -4,9 +4,11 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.lab.mymvp.base.RoomDb;
+import com.lab.mymvp.base.dao.CartDao;
 import com.lab.mymvp.base.dao.DiscountDao;
 import com.lab.mymvp.base.dao.ItemDao;
 import com.lab.mymvp.base.dao.LibraryDao;
+import com.lab.mymvp.base.repo.CartRepo;
 import com.lab.mymvp.base.repo.DiscountRepo;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.base.repo.LibraryRepo;
@@ -62,5 +64,17 @@ public class RoomModule {
     @Provides
     DiscountRepo provideDiscountRepository(Context context, DiscountDao dao) {
         return new DiscountRepo(context, dao);
+    }
+
+    @Singleton
+    @Provides
+    CartDao provideCartDao(RoomDb db) {
+        return db.getCartDao();
+    }
+
+    @Singleton
+    @Provides
+    CartRepo providCartRepository(Context context, CartDao dao) {
+        return new CartRepo(context, dao);
     }
 }
