@@ -1,6 +1,5 @@
 package com.lab.mymvp.business.left;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,50 +11,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lab.mymvp.R;
-import com.lab.mymvp.base.MainContract;
-import com.lab.mymvp.base.entity.ItemData;
-import com.lab.mymvp.base.repo.ItemRepo;
-
-import java.util.List;
+import com.lab.mymvp.base.repo.DiscountRepo;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class ItemListFragment extends Fragment {
+public class DiscountListFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
     @Inject
-    ItemRepo mItemRepo;
-
-    private ItemAdapter mItemAdapter;
+    DiscountRepo mRepo;
 
     @Inject
-    public ItemListFragment() {
-
+    public DiscountListFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_all_items, null);
-        return v;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-        mItemAdapter = new ItemAdapter(getActivity(),R.layout.item_payload, mItemRepo.getAllItems());
-        mRecyclerView.setAdapter(mItemAdapter);
+        DiscountAdapter discountAdapter = new DiscountAdapter(getActivity(), R.layout.item_discounts, mRepo.getAllDiscounts());
+        mRecyclerView.setAdapter(discountAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
+
 }

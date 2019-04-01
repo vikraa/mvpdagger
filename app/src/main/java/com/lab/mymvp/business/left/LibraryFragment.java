@@ -14,14 +14,19 @@ import android.view.ViewGroup;
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.RoomDb;
+import com.lab.mymvp.base.entity.ItemData;
+import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.base.repo.LibraryRepo;
+
+import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LibraryFragment extends Fragment {
+public class LibraryFragment extends Fragment implements MainContract.View<ItemData> {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecylerView;
@@ -31,8 +36,12 @@ public class LibraryFragment extends Fragment {
 
     @Inject
     RoomDb mDatabase;
+
     @Inject
     LibraryRepo mLibraryRepo;
+
+    @Inject
+    ItemRepo mItemRepo;
 
     private LibraryAdapter mAdapter;
 
@@ -44,9 +53,6 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (mPresenter != null) {
-            mPresenter.initData();
-        }
     }
 
     @Nullable
@@ -63,5 +69,10 @@ public class LibraryFragment extends Fragment {
         mAdapter = new LibraryAdapter(getActivity(),R.layout.item_library, mLibraryRepo.getLibraryItems());
         mRecylerView.setAdapter(mAdapter);
         mRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @Override
+    public void showData(List<ItemData> list) {
+
     }
 }

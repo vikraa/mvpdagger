@@ -2,6 +2,7 @@ package com.lab.mymvp.base.module;
 
 import com.lab.mymvp.base.PerActivity;
 import com.lab.mymvp.business.MainActivity;
+import com.lab.mymvp.business.left.LibraryFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

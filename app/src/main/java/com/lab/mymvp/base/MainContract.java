@@ -10,6 +10,5 @@ public interface MainContract {
 
     interface Presenter {
         void initData();
-        void unsubscribe();
     }
 }

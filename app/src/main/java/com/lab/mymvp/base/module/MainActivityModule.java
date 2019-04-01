@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.base.repo.LibraryRepo;
+import com.lab.mymvp.business.left.DiscountListFragment;
 import com.lab.mymvp.business.left.ItemListFragment;
 import com.lab.mymvp.business.left.LibraryFragment;
 import com.lab.mymvp.business.MainActivity;
@@ -30,6 +31,9 @@ public abstract class MainActivityModule {
 
     @Binds
     public abstract Fragment fragmentItemList(ItemListFragment itemListFragment);
+
+    @Binds
+    public abstract Fragment fragmentDiscountList(DiscountListFragment discountListFragment);
 
     @Provides
     static RestHelper provideRestHelper() {

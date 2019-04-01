@@ -35,11 +35,7 @@ public class PresenterImpl implements MainContract.Presenter {
             @Override
             public void success(List<ItemData> items, Response response) {
                 Log.d("retrofit success", "count  = " + items.size());
-                for (ItemData it : items) {
-                    int rand = new Random().nextInt((99 - 10) + 1) + 10;
-                    it.setPrice(it.getId()*rand);
-                    mItemRepo.insert(it);
-                }
+                mView.showData(items);
             }
 
             @Override
@@ -49,8 +45,4 @@ public class PresenterImpl implements MainContract.Presenter {
         });
     }
 
-    @Override
-    public void unsubscribe() {
-        //mView.showData("unsubscribed");
-    }
 }

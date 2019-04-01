@@ -48,7 +48,7 @@ public class LibraryAdapter extends BaseQuickAdapter<Library> {
             @Override
             public void onClick(View v) {
                 if (baseViewHolder.getAdapterPosition() == 0) { //discount
-
+                    ((MainActivity)mContext).showFragmentDiscounts();
                 } else { //allitems
                     ((MainActivity)mContext).showFragmentAllItems();
                 }
