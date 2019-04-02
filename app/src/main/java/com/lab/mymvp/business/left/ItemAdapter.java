@@ -1,6 +1,9 @@
 package com.lab.mymvp.business.left;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.entity.ItemData;
+import com.lab.mymvp.business.AlertFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -27,6 +31,9 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
     TextView mTxtPrice;
 
     private Context mContext;
+    private AlertFragment mAlertCartItem;
+    private static final String TAG = "CART_ALERT";
+    public static final String ITEM_DATA_CART = "item_data_cart";
 
     public ItemAdapter(Context context, int layoutResId, List<ItemData> data) {
         super(layoutResId, data);
@@ -34,7 +41,7 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
     }
 
     @Override
-    protected void convert(BaseViewHolder baseViewHolder, ItemData item) {
+    protected void convert(BaseViewHolder baseViewHolder, final ItemData item) {
         ButterKnife.bind(this, baseViewHolder.itemView);
         Picasso.with(mContext).load(item.getThumbNailUrl())
                 .error(R.drawable.ic_launcher_background)
@@ -42,5 +49,19 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
                 .into(mImgItem);
         mTxtItem.setText(item.getTitle());
         mTxtPrice.setText(String.format("$ %,d", item.getPrice()));
+        baseViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddcartItem(item);
+            }
+        });
+    }
+
+    private void showAddcartItem(ItemData data) {
+        mAlertCartItem = new AlertFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ITEM_DATA_CART, data);
+        mAlertCartItem.setArguments(bundle);
+        mAlertCartItem.show(((AppCompatActivity)mContext).getSupportFragmentManager(),TAG);
     }
 }
