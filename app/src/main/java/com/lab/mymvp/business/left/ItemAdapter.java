@@ -1,8 +1,10 @@
 package com.lab.mymvp.business.left;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,7 +36,7 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
     private AlertFragment mAlertCartItem;
     private static final String TAG = "CART_ALERT";
     public static final String ITEM_DATA_CART = "item_data_cart";
-
+    public static final String ITEM_CART_ADDED = "item_cart_added";
     public ItemAdapter(Context context, int layoutResId, List<ItemData> data) {
         super(layoutResId, data);
         mContext = context;

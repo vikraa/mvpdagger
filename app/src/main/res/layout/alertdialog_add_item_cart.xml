@@ -10,26 +10,34 @@
         android:orientation="horizontal"
         android:layout_margin="10dp">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="@string/title_sale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"/>
-            <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <Button android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_cancel"
                 android:text="@string/btn_cancel"
-                android:layout_gravity="start"/>
-            <Button android:layout_width="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.3"
+                android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/txt_title"
+                android:text="@string/title_sale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="0.4"/>
+            <Button android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_save"
                 android:text="@string/btn_save"
-                android:layout_gravity="end"/>
-        </FrameLayout>
+                android:layout_gravity="end"
+                android:layout_weight="0.3"
+                android:textSize="13sp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -49,7 +57,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:focusable="false"/>
 
         <Button
             android:id="@+id/btn_increment"
