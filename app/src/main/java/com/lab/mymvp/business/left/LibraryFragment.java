@@ -14,12 +14,8 @@ import android.view.ViewGroup;
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.RoomDb;
-import com.lab.mymvp.base.entity.ItemData;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.base.repo.LibraryRepo;
-
-import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 

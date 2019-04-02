@@ -35,7 +35,7 @@ public class ShoppinCartAdapter extends BaseQuickAdapter<CartItem> {
     protected void convert(BaseViewHolder baseViewHolder, CartItem cartItem) {
         ButterKnife.bind(this, baseViewHolder.itemView);
         mName.setText(cartItem.getItemName());
-        mQuantity.setText(cartItem.getQuantity());
-        mPrice.setText(String.format("%,d",cartItem.getQuantity()*1));
+        mQuantity.setText("x".concat(String.valueOf(cartItem.getQuantity())));
+        mPrice.setText("$ ".concat(String.format("%.1f",cartItem.getPrice())));
     }
 }

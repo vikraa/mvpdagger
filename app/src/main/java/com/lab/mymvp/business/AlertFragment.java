@@ -15,11 +15,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lab.mymvp.R;
+import com.lab.mymvp.base.entity.CartItem;
 import com.lab.mymvp.base.entity.ItemData;
 import com.lab.mymvp.business.left.ItemAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.lab.mymvp.business.left.ItemAdapter.ITEM_CART_ADDED;
 
 public class AlertFragment extends DialogFragment {
 
@@ -35,6 +38,8 @@ public class AlertFragment extends DialogFragment {
     Button mBtnIncrement;
     @BindView(R.id.btn_decrement)
     Button mBtnDecrement;
+
+    private ItemData mData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,14 +58,14 @@ public class AlertFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        ItemData data = getArguments().getParcelable(ItemAdapter.ITEM_DATA_CART);
-        if (data != null) {
-            initCartItem(data);
+        mData = getArguments().getParcelable(ItemAdapter.ITEM_DATA_CART);
+        if (mData != null) {
+            initCartItem();
         }
     }
 
-    private void initCartItem(ItemData data) {
-        mItemName.setText(data.getTitle());
+    private void initCartItem() {
+        mItemName.setText(mData.getTitle());
         mEdtQuantity.setText(String.valueOf(1));
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +76,17 @@ public class AlertFragment extends DialogFragment {
         mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(ItemAdapter.ITEM_CART_ADDED));
+                CartItem cartItem = new CartItem();
+                cartItem.setItemName(mData.getTitle());
+                cartItem.setDiscountValue(10);
+                cartItem.setQuantity(Integer.valueOf(mEdtQuantity.getText().toString()));
+                cartItem.setPrice(cartItem.getQuantity() * mData.getPrice());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(ITEM_CART_ADDED, cartItem);
+                Intent itemCart = new Intent(ITEM_CART_ADDED);
+                itemCart.putExtra(ITEM_CART_ADDED, bundle);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(itemCart);
+                dismissAllowingStateLoss();
             }
         });
         mBtnIncrement.setOnClickListener(new View.OnClickListener() {

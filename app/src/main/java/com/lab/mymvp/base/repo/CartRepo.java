@@ -20,4 +20,12 @@ public class CartRepo {
     public List<CartItem> getAllCartItems() {
         return mDao.findAll();
     }
+
+    public long insert(CartItem item) {
+        return mDao.insert(item);
+    }
+
+    public void deleteAllItems() {
+        mDao.delete();
+    }
 }

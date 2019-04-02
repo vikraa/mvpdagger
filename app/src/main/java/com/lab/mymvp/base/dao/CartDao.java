@@ -1,7 +1,9 @@
 package com.lab.mymvp.base.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.lab.mymvp.base.entity.CartItem;
@@ -14,7 +16,11 @@ public interface CartDao {
     @Insert
     long insert(CartItem cartItem);
 
-    @Query("select * from cart")
+    @Query("delete from cart")
+    void delete();
+
+    @Query("select item_id, item_name, discount_value, sum(item_prices) as item_prices, sum(quantity) as quantity " +
+            "from cart group by item_name, discount_value")
     List<CartItem> findAll();
 
 }
