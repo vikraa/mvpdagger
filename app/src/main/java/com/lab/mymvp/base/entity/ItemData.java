@@ -3,11 +3,13 @@ package com.lab.mymvp.base.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "items")
-public class ItemData {
+public class ItemData implements Parcelable {
 
     @ColumnInfo(name = "albumId")
     @SerializedName("albumId")
@@ -32,6 +34,46 @@ public class ItemData {
 
     @ColumnInfo(name = "price")
     long mPrice;
+
+
+    public ItemData() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeInt(mId);
+        dest.writeInt(mAlbumId);
+        dest.writeString(mTitle);
+        dest.writeString(mUrl);
+        dest.writeString(mThumbNailUrl);
+        dest.writeLong(mPrice);
+    }
+
+    public ItemData(Parcel in) {
+        this.mId = in.readInt();
+        this.mAlbumId = in.readInt();
+        this.mTitle = in.readString();
+        this.mUrl = in.readString();
+        this.mThumbNailUrl = in.readString();
+        this.mPrice = in.readLong();
+    }
+
+    public static final Creator<ItemData> CREATOR = new Creator<ItemData>() {
+        @Override
+        public ItemData createFromParcel(Parcel source) {
+            return new ItemData(source);
+        }
+
+        @Override
+        public ItemData[] newArray(int size) {
+            return new ItemData[size];
+        }
+    };
 
     public int getAlbumId() {
         return mAlbumId;
@@ -80,4 +122,5 @@ public class ItemData {
     public void setPrice(long mPrice) {
         this.mPrice = mPrice;
     }
+
 }

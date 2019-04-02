@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="@string/title_shopping_cart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false" />
+        android:layout_height="0dp"
+        android:layout_weight="0.6"/>
 
-</FrameLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <include android:id="@+id/vw_subtotal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            layout="@layout/shopping_summary_item"/>
+        <include android:id="@+id/vw_discount"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            layout="@layout/shopping_summary_item"/>
+        <Button
+            android:id="@+id/btn_clear"
+            android:text="@string/clear_cart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"/>
+        <include android:id="@+id/vw_totalprice"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            layout="@layout/shopping_summary_item"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
