@@ -12,8 +12,6 @@ import com.lab.mymvp.business.MainActivity;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

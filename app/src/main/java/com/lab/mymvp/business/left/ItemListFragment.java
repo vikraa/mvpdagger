@@ -12,12 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lab.mymvp.R;
-import com.lab.mymvp.base.MainContract;
-import com.lab.mymvp.base.entity.ItemData;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.business.AlertFragment;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

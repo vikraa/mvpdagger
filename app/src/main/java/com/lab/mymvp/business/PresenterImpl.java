@@ -9,7 +9,6 @@ import com.lab.mymvp.base.repo.LibraryRepo;
 import com.lab.mymvp.business.net.RestHelper;
 
 import java.util.List;
-import java.util.Random;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

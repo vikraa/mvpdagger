@@ -9,8 +9,8 @@ import com.lab.mymvp.base.dao.ItemDao;
 import com.lab.mymvp.base.dao.LibraryDao;
 import com.lab.mymvp.base.entity.CartItem;
 import com.lab.mymvp.base.entity.Discount;
-import com.lab.mymvp.base.entity.Library;
 import com.lab.mymvp.base.entity.ItemData;
+import com.lab.mymvp.base.entity.Library;
 
 @Database(entities = {Library.class, ItemData.class,
                         Discount.class, CartItem.class}, version = RoomDb.VERSION, exportSchema = false)

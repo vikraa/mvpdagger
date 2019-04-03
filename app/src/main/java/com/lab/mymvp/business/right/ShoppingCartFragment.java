@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.entity.CartItem;
 import com.lab.mymvp.base.repo.CartRepo;
-import com.lab.mymvp.business.left.ItemAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.entity.ItemData;
-import com.lab.mymvp.base.entity.Library;
 import com.lab.mymvp.base.repo.CartRepo;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.business.left.DiscountListFragment;
