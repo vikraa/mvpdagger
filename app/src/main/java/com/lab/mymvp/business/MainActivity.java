@@ -6,6 +6,7 @@ import com.lab.mymvp.R;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.entity.ItemData;
 import com.lab.mymvp.base.entity.Library;
+import com.lab.mymvp.base.repo.CartRepo;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.business.left.DiscountListFragment;
 import com.lab.mymvp.business.left.ItemListFragment;
@@ -35,6 +36,9 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
 
     @Inject
     ItemRepo mItemRepo;
+
+    @Inject
+    CartRepo mCartRepo;
 
     @Inject
     MainContract.Presenter mPresenter;
@@ -89,6 +93,11 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
         if (mPresenter != null) {
             mPresenter.initData();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override

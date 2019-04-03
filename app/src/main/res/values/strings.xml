@@ -9,4 +9,7 @@
     <string name="title_sale">Sale</string>
     <string name="inc_item">+</string>
     <string name="dec_item">-</string>
+    <string name="shopping_cart_subtotal_title">Subtotal</string>
+    <string name="shopping_cart_discount_title">Discount</string>
+    <string name="shopping_cart_charge_title">Charge</string>
 </resources>

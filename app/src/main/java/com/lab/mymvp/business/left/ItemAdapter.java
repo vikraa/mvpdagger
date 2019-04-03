@@ -1,10 +1,8 @@
 package com.lab.mymvp.business.left;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +40,10 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
         mContext = context;
     }
 
+    public void setShoppingItemCartDialog(AlertFragment alertFragment) {
+        mAlertCartItem = alertFragment;
+    }
+
     @Override
     protected void convert(BaseViewHolder baseViewHolder, final ItemData item) {
         ButterKnife.bind(this, baseViewHolder.itemView);
@@ -60,7 +62,7 @@ public class ItemAdapter extends BaseQuickAdapter<ItemData> {
     }
 
     private void showAddcartItem(ItemData data) {
-        mAlertCartItem = new AlertFragment();
+        //mAlertCartItem = new AlertFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ITEM_DATA_CART, data);
         mAlertCartItem.setArguments(bundle);

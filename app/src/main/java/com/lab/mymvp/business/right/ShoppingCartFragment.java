@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.entity.CartItem;
@@ -38,6 +39,13 @@ public class ShoppingCartFragment extends Fragment {
     RecyclerView mRecyclerView;
     @BindView(R.id.btn_clear)
     Button mBtnClear;
+    @BindView(R.id.vw_subtotal)
+    View mViewSubtotal;
+    @BindView(R.id.vw_discount)
+    View mViewDiscount;
+    @BindView(R.id.vw_totalprice)
+    View mViewCharge;
+
     @Inject
     CartRepo mCartRepo;
 
@@ -46,22 +54,38 @@ public class ShoppingCartFragment extends Fragment {
     private float mSubtotal;
     private float mDiscountPrice;
     private float mChargePrice;
+    private TextView mTvSubtotalTitle;
+    private TextView mTvDiscountTitle;
+    private TextView mTvChargeTitle;
+    private TextView mTvSubtotal;
+    private TextView mTvDiscount;
+    private TextView mTvCharge;
+
     private BroadcastReceiver mBroadCastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("RECEIVER", "received intent");
             Bundle bundle = intent.getBundleExtra(ITEM_CART_ADDED);
             CartItem item = (CartItem)bundle.getParcelable(ITEM_CART_ADDED);
-            if (item != null) {
-                long affected = mCartRepo.insert(item);
-            }
+            mSubtotal = 0;
+            mDiscountPrice = 0;
+            mChargePrice = 0;
+            mCartRepo.insert(item);
             List<CartItem> items = mCartRepo.getAllCartItems();
             for (CartItem c : items) {
                 mSubtotal += c.getPrice();
-                mDiscountPrice += (c.getPrice() - (c.getPrice()*(c.getDiscountValue()/100)));
+                float discount = c.getDiscountValue() == 0 ? 0 : c.getDiscountValue()/100;
+                mDiscountPrice += discount == 0 ? 0 : (c.getPrice() - (c.getPrice()*discount));
             }
             mChargePrice = mSubtotal - mDiscountPrice;
             mAdapter.setNewData(mCartRepo.getAllCartItems());
+
+            mTvSubtotal.setText(String.format("%.1f",mSubtotal));
+            mTvDiscount.setText(String.format("%.1f",mDiscountPrice));
+            mTvCharge.setText(String.format("%.1f",mChargePrice));
+            Log.d("CALC","subtotal --> " +String.valueOf(mSubtotal));
+            Log.d("CALC","discountprice --> " +String.valueOf(mDiscountPrice));
+            Log.d("CALC","chargeprice --> " +String.valueOf(mChargePrice));
         }
     };
 
@@ -79,6 +103,7 @@ public class ShoppingCartFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mCartRepo.deleteAllItems();
         return inflater.inflate(R.layout.fragment_shoppingcart, null);
     }
 
@@ -100,8 +125,26 @@ public class ShoppingCartFragment extends Fragment {
             public void onClick(View v) {
                 mCartRepo.deleteAllItems();
                 mAdapter.setNewData(new ArrayList<CartItem>());
+                mTvSubtotal.setText(String.valueOf(0));
+                mTvDiscount.setText(String.valueOf(0));
+                mTvCharge.setText(String.valueOf(0));
             }
         });
+
+        mTvSubtotalTitle = mViewSubtotal.findViewById(R.id.txt_name);
+        mTvSubtotalTitle.setText(getResources().getString(R.string.shopping_cart_subtotal_title));
+        mTvDiscountTitle = mViewDiscount.findViewById(R.id.txt_name);
+        mTvDiscountTitle.setText(getResources().getString(R.string.shopping_cart_discount_title));
+        mTvChargeTitle = mViewCharge.findViewById(R.id.txt_name);
+        mTvChargeTitle.setText(getResources().getString(R.string.shopping_cart_charge_title));
+
+        mTvSubtotal = mViewSubtotal.findViewById(R.id.txt_value);
+        mTvDiscount = mViewDiscount.findViewById(R.id.txt_value);
+        mTvCharge = mViewCharge.findViewById(R.id.txt_value);
+
+        mTvSubtotal.setText(String.valueOf(0));
+        mTvDiscount.setText(String.valueOf(0));
+        mTvCharge.setText(String.valueOf(0));
     }
 
     private void initBroadcastReceiver() {

@@ -7,17 +7,28 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.lab.mymvp.R;
 import com.lab.mymvp.base.entity.CartItem;
+import com.lab.mymvp.base.entity.Discount;
 import com.lab.mymvp.base.entity.ItemData;
+import com.lab.mymvp.base.repo.DiscountRepo;
 import com.lab.mymvp.business.left.ItemAdapter;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,8 +49,29 @@ public class AlertFragment extends DialogFragment {
     Button mBtnIncrement;
     @BindView(R.id.btn_decrement)
     Button mBtnDecrement;
+    @BindView(R.id.discount_opt1)
+    Switch mDiscountSwitchOpt1;
+    @BindView(R.id.discount_opt2)
+    Switch mDiscountSwitchOpt2;
+    @BindView(R.id.discount_opt3)
+    Switch mDiscountSwitchOpt3;
+    @BindView(R.id.discount_opt4)
+    Switch mDiscountSwitchOpt4;
+    @Inject
+    DiscountRepo mDiscountRepo;
 
     private ItemData mData;
+    private HashMap<Integer, Switch> mDiscountSwitchMap;
+    private HashMap<Integer,Discount> mDiscountModelMap;
+    private CompoundButton.OnCheckedChangeListener mDiscountSwitchCheckedListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            updateState(buttonView.getId(), isChecked);
+        }
+    };
+    @Inject
+    public AlertFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +94,49 @@ public class AlertFragment extends DialogFragment {
         if (mData != null) {
             initCartItem();
         }
+        mEdtQuantity.setText(String.valueOf(1));
+        initDiscount();
+    }
+
+    private void initDiscount() {
+        mDiscountSwitchMap = new HashMap<>();
+        mDiscountSwitchMap.put(mDiscountSwitchOpt1.getId(), mDiscountSwitchOpt1);
+        mDiscountSwitchMap.put(mDiscountSwitchOpt2.getId(), mDiscountSwitchOpt2);
+        mDiscountSwitchMap.put(mDiscountSwitchOpt3.getId(), mDiscountSwitchOpt3);
+        mDiscountSwitchMap.put(mDiscountSwitchOpt4.getId(), mDiscountSwitchOpt4);
+        int index = 0;
+        List<Discount> discountList = mDiscountRepo.getAllDiscounts();
+        mDiscountModelMap = new HashMap<>();
+        for (final Map.Entry<Integer, Switch> e : mDiscountSwitchMap.entrySet()) {
+            e.getValue().setChecked(false);
+            e.getValue().setOnCheckedChangeListener(mDiscountSwitchCheckedListener);
+            Discount d = discountList.get(index);
+            e.getValue().setText(d.getName().concat(" (").concat(String.valueOf(d.getDiscountValue())).concat(")"));
+            mDiscountModelMap.put(e.getKey(), discountList.get(index));
+            index++;
+        }
+    }
+
+    private synchronized void updateState(int id, boolean checked) {
+        for (Map.Entry<Integer, Switch> e : mDiscountSwitchMap.entrySet()) {
+            e.getValue().setOnCheckedChangeListener(null);
+            if (e.getValue().getId() == id) {
+                e.getValue().setChecked(checked);
+            } else {
+                e.getValue().setChecked(false);
+            }
+            e.getValue().setOnCheckedChangeListener(mDiscountSwitchCheckedListener);
+        }
+    }
+
+    private float getDiscount() {
+        for (Map.Entry<Integer, Switch> e : mDiscountSwitchMap.entrySet()) {
+            if (e.getValue().isChecked()) {
+                Log.d("DISCOUNT", String.valueOf(mDiscountModelMap.get(e.getKey()).getDiscountValue()));
+                return mDiscountModelMap.get(e.getKey()).getDiscountValue();
+            }
+        }
+        return 0;
     }
 
     private void initCartItem() {
@@ -78,7 +153,7 @@ public class AlertFragment extends DialogFragment {
             public void onClick(View v) {
                 CartItem cartItem = new CartItem();
                 cartItem.setItemName(mData.getTitle());
-                cartItem.setDiscountValue(10);
+                cartItem.setDiscountValue(getDiscount());
                 cartItem.setQuantity(Integer.valueOf(mEdtQuantity.getText().toString()));
                 cartItem.setPrice(cartItem.getQuantity() * mData.getPrice());
                 Bundle bundle = new Bundle();
@@ -130,6 +205,12 @@ public class AlertFragment extends DialogFragment {
         android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(this, tag);
         transaction.commitAllowingStateLoss();
+
+        if (mEdtQuantity != null) {
+            mEdtQuantity.setText(String.valueOf(1));
+            initDiscount();
+        }
+
     }
 
 }

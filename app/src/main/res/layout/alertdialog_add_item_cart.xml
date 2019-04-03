@@ -74,7 +74,51 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"/>
     </LinearLayout>
+    <RadioGroup
+        android:id="@+id/groupswitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_margin="3dp">
+            <Switch
+                android:id="@+id/discount_opt1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_margin="3dp"/>
+            <Switch
+                android:id="@+id/discount_opt2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_margin="3dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_margin="3dp">
+            <Switch
+                android:id="@+id/discount_opt3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_margin="3dp"/>
+            <Switch
+                android:id="@+id/discount_opt4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_margin="3dp"/>
+        </LinearLayout>
 
+    </RadioGroup>
 
 
 

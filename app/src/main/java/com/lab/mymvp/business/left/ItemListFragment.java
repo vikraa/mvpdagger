@@ -15,6 +15,7 @@ import com.lab.mymvp.R;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.entity.ItemData;
 import com.lab.mymvp.base.repo.ItemRepo;
+import com.lab.mymvp.business.AlertFragment;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class ItemListFragment extends Fragment {
 
     @Inject
     ItemRepo mItemRepo;
+
+    @Inject
+    AlertFragment mAddItemCartDialog;
 
     private ItemAdapter mItemAdapter;
 
@@ -55,6 +59,7 @@ public class ItemListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mItemAdapter = new ItemAdapter(getActivity(),R.layout.item_payload, mItemRepo.getAllItems());
+        mItemAdapter.setShoppingItemCartDialog(mAddItemCartDialog);
         mRecyclerView.setAdapter(mItemAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

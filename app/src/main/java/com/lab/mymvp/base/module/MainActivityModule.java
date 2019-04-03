@@ -1,11 +1,15 @@
 package com.lab.mymvp.base.module;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lab.mymvp.base.MainContract;
 import com.lab.mymvp.base.repo.ItemRepo;
 import com.lab.mymvp.base.repo.LibraryRepo;
+import com.lab.mymvp.business.AlertFragment;
 import com.lab.mymvp.business.left.DiscountListFragment;
+import com.lab.mymvp.business.left.ItemAdapter;
 import com.lab.mymvp.business.left.ItemListFragment;
 import com.lab.mymvp.business.left.LibraryFragment;
 import com.lab.mymvp.business.MainActivity;
@@ -34,6 +38,9 @@ public abstract class MainActivityModule {
 
     @Binds
     public abstract Fragment fragmentDiscountList(DiscountListFragment discountListFragment);
+
+    @Binds
+    public abstract DialogFragment fragmentDialogCart(AlertFragment alertFragment);
 
     @Provides
     static RestHelper provideRestHelper() {
